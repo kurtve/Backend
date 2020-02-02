@@ -11,7 +11,8 @@ const authenticate = async (req, res, next) => {
     if (!decoded) {
       res.status(401).json({ message: 'Invalid credentials' });
     } else {
-      req.username = decoded.username;
+      // store user info on the request object
+      req.tokenData = decoded;
       next();
     }
   } catch (err) {

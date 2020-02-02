@@ -4,6 +4,8 @@ const helmet = require('helmet');
 
 const authenticate = require('./auth/auth-middleware.js');
 const authRouter = require('./auth/auth-router.js');
+const profRouter = require('./profiles/prof-router.js');
+const postRouter = require('./postings/post-router.js');
 
 const server = express();
 
@@ -12,6 +14,8 @@ server.use(cors());
 server.use(express.json());
 
 server.use('/api/auth', authRouter);
+server.use('/api/profiles', authenticate, profRouter);
+// server.use('/api/postings', authenticate, postRouter);
 
 // default proof-of-life endpoint
 server.get('/', (req, res, next) => {

@@ -59,7 +59,6 @@ router.post('/login', async (req, res, next) => {
           .findBy({ username: user.username })
           .first();
         const token = authModel.makeToken(dbUser);
-
         res.status(200).json({
           id: dbUser.id,
           username: dbUser.username,
