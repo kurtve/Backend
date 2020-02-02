@@ -3,29 +3,36 @@ const jwt = require('jsonwebtoken');
 const db = require('../database/dbConfig.js');
 const secrets = require('../config/secrets.js');
 
+console.log(secrets.HASH_ROUNDS);
+console.log(secrets.JWT_SECRET);
+
 // get a list of all users
 async function find() {
-  return db('users').select('id', 'username');
+  return db('users').select('id', 'username', 'role');
 }
 
-// get a list of users matching a filter criteria
+// get the first user matching a filter criteria
 function findBy(filter) {
   return db('users')
     .where(filter)
-    .select('id', 'username', 'password');
+    .select('id', 'username', 'role', 'password')
+    .first();
 }
 
 // get a single user with the given id
 async function findById(id) {
   return db('users')
     .where({ id })
-    .select('id', 'username', 'password')
+    .select('id', 'username', 'role', 'password')
     .first();
 }
 
 // add a user after hashing the user password
 async function add(user) {
-  user.password = await bcrypt.hash(user.password, secrets.HASH_ROUNDS);
+  user.password = await bcrypt.hash(
+    user.password,
+    Number.parseInt(secrets.HASH_ROUNDS)
+  );
   const [id] = await db('users').insert(user);
   return findById(id);
 }
@@ -60,8 +67,9 @@ function decodeToken(token) {
 function makeToken(user) {
   const payload = {
     subject: 'user-credentials',
+    id: user.id,
     username: user.username,
-    role: 'user',
+    role: user.role,
   };
 
   const options = {
