@@ -3,9 +3,6 @@ const jwt = require('jsonwebtoken');
 const db = require('../database/dbConfig.js');
 const secrets = require('../config/secrets.js');
 
-console.log(secrets.HASH_ROUNDS);
-console.log(secrets.JWT_SECRET);
-
 // get a list of all users
 async function find() {
   return db('users').select('id', 'username', 'role');
