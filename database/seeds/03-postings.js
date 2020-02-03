@@ -27,7 +27,7 @@ exports.seed = async knex => {
         'Looking for a hot-shot developer to create a state-of-the-art web site',
       skills: 'HTML, CSS, Javascript, React, Redux, Node, Express, PostgreSQL',
       level: '3-5 years experience doing web development',
-      pay: '$120K -$150K plus stock options',
+      pay: '$120K-$150K plus stock options',
     },
   ]);
 };

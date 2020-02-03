@@ -15,7 +15,7 @@ server.use(express.json());
 
 server.use('/api/auth', authRouter);
 server.use('/api/profiles', authenticate, profRouter);
-// server.use('/api/postings', authenticate, postRouter);
+server.use('/api/postings', authenticate, postRouter);
 
 // default proof-of-life endpoint
 server.get('/', (req, res, next) => {
