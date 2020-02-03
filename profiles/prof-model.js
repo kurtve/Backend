@@ -75,7 +75,16 @@ async function update(profile, id) {
   return findById(id);
 }
 
+// delete a profile
+async function del(id) {
+  const count = await db('profiles')
+    .del()
+    .where({ id });
+  return count;
+}
+
 module.exports = {
+  del,
   add,
   update,
   find,

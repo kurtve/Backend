@@ -50,7 +50,6 @@ async function add(posting) {
 
 // update a posting
 // note: user_id is taken from tokenData that was inserted by middleware
-// if any fields are undefined, they will be unchanged in the database
 async function update(posting, id) {
   const cleanPosting = {
     user_id: posting.user_id,
@@ -71,7 +70,16 @@ async function update(posting, id) {
   return findById(id);
 }
 
+// delete a posting
+async function del(id) {
+  const count = await db('postings')
+    .del()
+    .where({ id });
+  return count;
+}
+
 module.exports = {
+  del,
   add,
   update,
   find,

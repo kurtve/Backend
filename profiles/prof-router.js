@@ -86,4 +86,22 @@ router.put('/:id', async (req, res, next) => {
   }
 });
 
+router.delete('/:id', async (req, res, next) => {
+  // delete a profile
+  const id = Number.parseInt(req.params.id);
+  try {
+    // attempt the delete
+    const count = await profModel.del(id);
+
+    if (count) {
+      res.sendStatus(204);
+    } else {
+      // delete did not work
+      res.status(404).json({ message: ` profile ${id} not found` });
+    }
+  } catch (err) {
+    next(err);
+  }
+});
+
 module.exports = router;
