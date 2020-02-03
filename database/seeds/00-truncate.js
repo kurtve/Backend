@@ -2,7 +2,7 @@
 // delete in reverse order of how tables are populated
 
 exports.seed = async knex => {
-  await knex('profiles').truncate();
-  //  await knex('postings').truncate();
-  await knex('users').truncate();
+  await knex('postings').del();
+  await knex('profiles').del();
+  await knex('users').del();
 };
