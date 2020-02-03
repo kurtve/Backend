@@ -56,17 +56,17 @@ async function add(profile) {
 async function update(profile, id) {
   const cleanProfile = {
     user_id: profile.user_id,
-    name: profile.name,
-    phone: profile.phone,
-    email: profile.email,
-    description: profile.description,
-    skills: profile.skills,
-    education1: profile.education1,
-    education2: profile.education2,
-    education3: profile.education3,
-    job_history1: profile.job_history1,
-    job_history2: profile.job_history2,
-    job_history3: profile.job_history3,
+    name: profile.name || '',
+    phone: profile.phone || '',
+    email: profile.email || '',
+    description: profile.description || '',
+    skills: profile.skills || '',
+    education1: profile.education1 || '',
+    education2: profile.education2 || '',
+    education3: profile.education3 || '',
+    job_history1: profile.job_history1 || '',
+    job_history2: profile.job_history2 || '',
+    job_history3: profile.job_history3 || '',
   };
 
   await db('profiles')
