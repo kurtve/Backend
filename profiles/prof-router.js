@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const profModel = require('./prof-model.js');
+const authenticate = require('../auth/auth-middleware.js');
 
 router.get('/', async (req, res, next) => {
   // get all profiles
@@ -25,7 +26,17 @@ router.get('/:id', async (req, res, next) => {
   }
 });
 
-router.post('/', async (req, res, next) => {
+router.get('/users/:user_id', async (req, res, next) => {
+  // get a profile by user_id
+  try {
+    const profiles = await profModel.findAllBy({ user_id: req.params.user_id });
+    res.json(profiles);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.post('/', authenticate, async (req, res, next) => {
   // add a profile
   try {
     // name is required, make sure it is present
@@ -51,7 +62,7 @@ router.post('/', async (req, res, next) => {
   }
 });
 
-router.put('/:id', async (req, res, next) => {
+router.put('/:id', authenticate, async (req, res, next) => {
   // update a profile
   const id = Number.parseInt(req.params.id);
   try {
@@ -86,7 +97,7 @@ router.put('/:id', async (req, res, next) => {
   }
 });
 
-router.delete('/:id', async (req, res, next) => {
+router.delete('/:id', authenticate, async (req, res, next) => {
   // delete a profile
   const id = Number.parseInt(req.params.id);
   try {
