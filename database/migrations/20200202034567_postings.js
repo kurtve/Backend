@@ -4,7 +4,12 @@ exports.up = function(knex) {
     postings
       .integer('user_id')
       .unsigned()
-      .notNullable();
+      .notNullable()
+      .references('id')
+      .inTable('users')
+      .onDelete('CASCADE')
+      .onUpdate('CASCADE');
+
     postings.string('job_title', 255).notNullable();
     postings.string('company', 255);
     postings.string('phone', 20);
@@ -14,11 +19,6 @@ exports.up = function(knex) {
     postings.string('skills', 500);
     postings.string('level', 500);
     postings.string('pay', 500);
-
-    postings
-      .foreign('user_id')
-      .references('id')
-      .inTable('users');
   });
 };
 
