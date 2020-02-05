@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const postModel = require('./post-model.js');
+const authenticate = require('../auth/auth-middleware.js');
 
 router.get('/', async (req, res, next) => {
   // get all postings
@@ -25,7 +26,17 @@ router.get('/:id', async (req, res, next) => {
   }
 });
 
-router.post('/', async (req, res, next) => {
+router.get('/users/:user_id', async (req, res, next) => {
+  // get postings by user_id
+  try {
+    const postings = await postModel.findAllBy({ user_id: req.params.user_id });
+    res.json(postings);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.post('/', authenticate, async (req, res, next) => {
   // add a posting
   try {
     // job_title is required, make sure it is present
@@ -51,7 +62,7 @@ router.post('/', async (req, res, next) => {
   }
 });
 
-router.put('/:id', async (req, res, next) => {
+router.put('/:id', authenticate, async (req, res, next) => {
   // update a posting
   const id = Number.parseInt(req.params.id);
   try {
@@ -86,7 +97,7 @@ router.put('/:id', async (req, res, next) => {
   }
 });
 
-router.delete('/:id', async (req, res, next) => {
+router.delete('/:id', authenticate, async (req, res, next) => {
   // delete a posting
   const id = Number.parseInt(req.params.id);
   try {
