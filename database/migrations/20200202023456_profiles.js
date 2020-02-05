@@ -4,7 +4,12 @@ exports.up = function(knex) {
     profiles
       .integer('user_id')
       .unsigned()
-      .notNullable();
+      .notNullable()
+      .references('id')
+      .inTable('users')
+      .onDelete('CASCADE')
+      .onUpdate('CASCADE');
+
     profiles.string('name', 255).notNullable();
     profiles.string('phone', 20);
     profiles.string('email', 255);
@@ -16,11 +21,6 @@ exports.up = function(knex) {
     profiles.string('job_history1', 500);
     profiles.string('job_history2', 500);
     profiles.string('job_history3', 500);
-
-    profiles
-      .foreign('user_id')
-      .references('id')
-      .inTable('users');
   });
 };
 
