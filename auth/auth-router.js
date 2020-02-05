@@ -1,6 +1,16 @@
 const router = require('express').Router();
 const authModel = require('./auth-model.js');
 
+router.get('/users', async (req, res, next) => {
+  // return a list of all users
+  try {
+    const users = await authModel.find();
+    res.status(200).json(users);
+  } catch (err) {
+    next(err);
+  }
+});
+
 router.post('/register', async (req, res, next) => {
   // register a new user
   try {
