@@ -1,5 +1,21 @@
 # Backend
 
+The backend for this project uses a database with four tables:
+
+* users
+* profiles
+* postings
+* marks
+
+The users are divided into two types:
+
+1. 'employee' or job-seeker, who can add their *profile* to the database
+2. 'employer' or job-poster, who can add a *posting* to the database
+
+Both types of users can *mark* a profile or posting with a +1 or positive swipe, or a -1 or negative swipe.  These marks relate a particular profile to a particular posting and not one user to another.  (For example, an employer might like job-seeker for one job but think they're a bad match for another job that they've posted.)
+
+The database enforces foriegn key consistency but pretty much everything else is left to the front-end to enforce.  So developers are free to reinterpret the meanings of these fields as they see fit.
+
 
 ## Table structure
 

@@ -18,14 +18,6 @@ router.post('/register', async (req, res, next) => {
       res.status(400).json({
         message: 'You must supply a username, role, and password',
       });
-    } else if (
-      req.body.role !== 'employee' &&
-      req.body.role !== 'employer' &&
-      req.body.role !== 'admin'
-    ) {
-      res.status(400).json({
-        message: `role must be either 'employee' or 'employer'`,
-      });
     } else {
       // if username already exists, return a 401 status
       const chkUser = await authModel.findBy({ username: req.body.username });
