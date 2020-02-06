@@ -77,7 +77,7 @@ id | integer
 user_id | integer - user id of user
 profile_id | integer - id of profile
 posting_id | integer - id of posting
-mark | integer - +1 or -1 if user liked/disliked posting
+mark | integer - +1 or -1 if user liked/disliked posting or profile
 
 ----
 
@@ -225,6 +225,33 @@ https://droom4.herokuapp.com/api
 ----
 
 
+* Get all marks: **GET /marks**
+
+    Request body: none
+
+    Response body: an array of all mark objects
+
+----
+
+
+* Get a mark by id: **GET /marks/:id**
+
+    Request body: none
+
+    Response body: a mark object which has id = the id in the URL
+
+----
+
+
+* Get all marks for a single user: **GET /marks/users/:user_id**
+
+    Request body: none
+
+    Response body: an array of mark objects which have user_id = the user_id in the URL
+
+----
+
+
 ### Restricted endpoints - user must be logged in to access:
 
 
@@ -302,33 +329,6 @@ https://droom4.herokuapp.com/api
 * Delete a job posting: **DELETE /postings/:id**
 
     Removes the posting with id = :id from the postings table.  Responds with status 204 if successful.
-
-----
-
-
-* Get all marks: **GET /marks**
-
-    Request body: none
-
-    Response body: an array of all mark objects
-
-----
-
-
-* Get a mark by id: **GET /marks/:id**
-
-    Request body: none
-
-    Response body: a mark object which has id = the id in the URL
-
-----
-
-
-* Get all marks for a single user: **GET /marks/users/:user_id**
-
-    Request body: none
-
-    Response body: an array of mark objects which have user_id = the user_id in the URL
 
 ----
 
