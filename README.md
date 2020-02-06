@@ -13,6 +13,7 @@ username | text
 role | text, either ‘employee’ or ‘employer’
 password | text (pw will be hashed before being saved)
 
+----
 
 ### profiles - user profile for a job seeker (‘employee’)
 
@@ -32,6 +33,7 @@ job_history1 | text
 job_history2 | text
 job_ history3 | text
 
+----
 
 ### postings - job posting by an employer
 
@@ -49,6 +51,7 @@ skills | text - desired skills
 level | text - experience level required for position
 pay | text - pay range/compensation 
 
+----
 
 ### marks - one record for each mark a user makes, pairing a user profile and job posting either positively or negatively
 
@@ -60,6 +63,7 @@ profile_id | integer - id of profile
 posting_id | integer - id of posting
 mark | integer - +1 or -1 if user liked/disliked posting
 
+----
 
 
 ## API endpoints
@@ -98,10 +102,12 @@ https://droom4.herokuapp.com/api
     Comments: With a successful registration, a token is returned so that the user is immediately logged in and a separate login API call is unnecessary.  These values should be saved in local storage for use by the front end (see more in the comments for login).
 
     If the username is already in use, the server will respond with a 401 status and:
-        `{ “message”: “username xxx is unavailable” }`,
+        ```{ “message”: “username xxx is unavailable” }```
     so that you can inform the user and let them attempt again with a different username.
 
     If any of username, role, or password are not included in the request body, the server will return a 401 status and an error message.  If the request body is malformed, the server will respond with a 500 status.
+
+----
 
 
 * Login as an existing user: **POST /auth/login**
@@ -133,12 +139,16 @@ https://droom4.herokuapp.com/api
 
     on all subsequent API calls in order to access restricted endpoints.
 
+----
+
 
 * Get a list of all users: **GET /auth/users**
 
     Request body: none
 
     Response body: an array of user objects
+
+----
 
 
 * Get a list of all job-seeker profiles: **GET /profiles**
@@ -147,6 +157,8 @@ https://droom4.herokuapp.com/api
 
     Response body: an array of all profile objects
 
+----
+
 
 * Get a single job-seeker profile: **GET /profiles/:id**
 
@@ -154,14 +166,18 @@ https://droom4.herokuapp.com/api
 
     Response body: a profile object with profile id matching that in the URL.
 
+----
 
-* Get all profiles for a specified user: *GET /profiles/users/:user_id*
+
+* Get all profiles for a specified user: **GET /profiles/users/:user_id**
 
     Request body: none
 
     Response body: an array of profile objects with user_id matching that in the URL.
     
     Note: the array could be empty if there are no profiles for that user or if the user does not exist in the database.
+
+----
 
 
 * Get a list of all job-postings: **GET /postings**
@@ -170,12 +186,16 @@ https://droom4.herokuapp.com/api
 
     Response body: an array of job-posting objects
 
+----
+
 
 * Get a single job-posting: **GET /postings/:id**
 
     Request body: none
 
     Response body: a job-posting object with posting id matching that in the URL.
+
+----
 
 
 * Get all postings for a specified user: **GET /postings/users/:user_id**
@@ -186,8 +206,11 @@ https://droom4.herokuapp.com/api
     
     Note: the array could be empty if the user has no postings or if the user does not exist in the database.
 
+----
+
 
 ### Restricted endpoints - user must be logged in to access:
+
 
 * Add a user profile: **POST /profiles**
 
@@ -212,15 +235,21 @@ https://droom4.herokuapp.com/api
 
     Response body: the profile object just added, including the id and user_id fields.
 
+----
+
 
 * Edit a user profile: **PUT /profiles/:id**
 
     Replaces the contents of the profile with id = :id, with the request body.  See the description at the corresponding POST endpoint for the details. 
 
+----
+
 
 * Delete a user profile: **DELETE /profiles/:id**
 
     Removes the profile with id = :id from the profiles table.  Responds with status 204 if successful.
+
+----
 
 
 * Add a job posting: **POST /postings**
@@ -244,15 +273,21 @@ https://droom4.herokuapp.com/api
 
     Response body: the posting object just added, including the id and user_id fields.
 
+----
+
 
 * Edit a job posting: **PUT /postings/:id**
 
     Replaces the posting with id = :id, with the request body.  See the description at the corresponding POST endpoint for the details.
 
+----
+
 
 * Delete a job posting: **DELETE /postings/:id**
 
     Removes the posting with id = :id from the postings table.  Responds with status 204 if successful.
+
+----
 
 
 * Get all marks: **GET /marks**
@@ -261,6 +296,8 @@ https://droom4.herokuapp.com/api
 
     Response body: an array of all mark objects
 
+----
+
 
 * Get a mark by id: **GET /marks/:id**
 
@@ -268,12 +305,16 @@ https://droom4.herokuapp.com/api
 
     Response body: a mark object which has id = the id in the URL
 
+----
+
 
 * Get all marks for a single user: **GET /marks/users/:user_id**
 
     Request body: none
 
     Response body: an array of mark objects which have user_id = the user_id in the URL
+
+----
 
 
 * Add a mark: **POST /marks**
@@ -291,10 +332,14 @@ https://droom4.herokuapp.com/api
 
     Response body: the mark object just created, including the id and user_id fields.
 
+----
+
 
 * Update a mark: **PUT /marks/:id**
 
     Replaces the mark with id = :id, with the request body.  See the description at the corresponding POST endpoint for the details.
+
+----
 
 
 * Delete a mark: **DELETE /marks/:id**
