@@ -1,5 +1,4 @@
 // Lambda build week droom-4 backend
-require('dotenv').config();
 
 const server = require('./server.js');
 
