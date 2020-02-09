@@ -16,6 +16,15 @@ const sqlite3 = {
   },
 };
 
+// production environment
+// this will get changed to PostgreSQL
+const production = {
+  ...sqlite3,
+  connection: {
+    filename: './database/droom.db3',
+  },
+};
+
 // dev environment
 const dev = {
   ...sqlite3,
@@ -34,6 +43,7 @@ const test = {
 
 // export configs for all our environments
 module.exports = {
+  production,
   dev,
   test,
 };
