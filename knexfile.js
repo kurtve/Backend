@@ -1,4 +1,34 @@
-// base configuration
+require('dotenv').config();
+
+// production environment - uses postgres
+
+const localPg = {
+  host: 'localhost',
+  port: '5432',
+  database: 'droom',
+  user: process.env.DB_USER,
+  password: process.env.DB_PASS,
+};
+
+const dbConnection = process.env.DATABASE_URL || localPg;
+
+const production = {
+  client: 'pg',
+  connection: dbConnection,
+  pool: {
+    min: 2,
+    max: 10,
+  },
+  migrations: {
+    directory: './database/migrations',
+    tableName: 'dbmigrations',
+  },
+  seeds: {
+    directory: './database/seeds',
+  },
+};
+
+// base sqlite3 configuration
 const sqlite3 = {
   client: 'sqlite3',
   useNullAsDefault: true,
@@ -13,15 +43,6 @@ const sqlite3 = {
       // runs after a connection is made to the sqlite engine
       conn.run('PRAGMA foreign_keys = ON', done); // turn on FK enforcement
     },
-  },
-};
-
-// production environment
-// this will get changed to PostgreSQL
-const production = {
-  ...sqlite3,
-  connection: {
-    filename: './database/droom.db3',
   },
 };
 
